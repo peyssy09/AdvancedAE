@@ -179,7 +179,7 @@ public class MixinCraftingService {
             at =
                     @At(
                             value = "INVOKE_ASSIGN",
-                            target = "appeng/me/service/CraftingService.findSuitableCraftingCPU "
+                            target = "appeng/me/service/CraftingService.findSuitableCraftingCPU"
                                     + "(Lappeng/api/networking/crafting/ICraftingPlan;ZLappeng/api/networking/security/IActionSource;"
                                     + "Lorg/apache/commons/lang3/mutable/MutableObject;)"
                                     + "Lappeng/me/cluster/implementations/CraftingCPUCluster;"),
