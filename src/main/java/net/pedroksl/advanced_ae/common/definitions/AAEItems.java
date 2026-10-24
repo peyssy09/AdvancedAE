@@ -1,0 +1,196 @@
+package net.pedroksl.advanced_ae.common.definitions;
+
+import java.util.List;
+import java.util.function.Function;
+
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Rarity;
+import net.pedroksl.advanced_ae.AdvancedAE;
+import net.pedroksl.advanced_ae.common.items.AdvPatternEncoderItem;
+import net.pedroksl.advanced_ae.common.items.AdvPatternProviderCapacityUpgradeItem;
+import net.pedroksl.advanced_ae.common.items.AdvPatternProviderUpgradeItem;
+import net.pedroksl.advanced_ae.common.items.armors.*;
+import net.pedroksl.advanced_ae.common.items.upgrades.QuantumUpgradeBaseItem;
+import net.pedroksl.advanced_ae.common.items.upgrades.UpgradeType;
+import net.pedroksl.advanced_ae.common.parts.*;
+import net.pedroksl.advanced_ae.common.patterns.AdvProcessingPatternItem;
+import net.pedroksl.advanced_ae.xmod.Addons;
+import net.pedroksl.ae2addonlib.registry.ItemRegistry;
+import net.pedroksl.ae2addonlib.registry.helpers.LibItemDefinition;
+import net.pedroksl.ae2addonlib.util.AddonEnum;
+
+import appeng.api.parts.IPart;
+import appeng.api.parts.IPartItem;
+import appeng.items.materials.MaterialItem;
+import appeng.items.parts.PartItem;
+import appeng.items.tools.powered.WirelessTerminalItem;
+
+public class AAEItems extends ItemRegistry {
+
+    public static AAEItems INSTANCE = new AAEItems();
+
+    AAEItems() {
+        super(AdvancedAE.MOD_ID);
+    }
+
+    public static List<LibItemDefinition<?>> getQuantumArmor() {
+        return INSTANCE.getItems().stream()
+                .filter(item -> item.stack().getItem() instanceof QuantumArmorBase)
+                .toList();
+    }
+
+    public static List<LibItemDefinition<?>> getQuantumCards() {
+        return INSTANCE.getItems().stream()
+                .filter(item -> item.stack().getItem() instanceof QuantumUpgradeBaseItem)
+                .toList();
+    }
+
+    public static final LibItemDefinition<PartItem<AdvPatternProviderPart>> ADV_PATTERN_PROVIDER = part(
+            "Advanced Extended Pattern Provider",
+            "adv_pattern_provider_part",
+            AdvPatternProviderPart.class,
+            AdvPatternProviderPart::new);
+    public static final LibItemDefinition<PartItem<SmallAdvPatternProviderPart>> SMALL_ADV_PATTERN_PROVIDER = part(
+            "Advanced Pattern Provider",
+            "small_adv_pattern_provider_part",
+            SmallAdvPatternProviderPart.class,
+            SmallAdvPatternProviderPart::new);
+    public static final LibItemDefinition<PartItem<StockExportBusPart>> STOCK_EXPORT_BUS =
+            part("ME Stock Export Bus", "stock_export_bus_part", StockExportBusPart.class, StockExportBusPart::new);
+    public static final LibItemDefinition<PartItem<ImportExportBusPart>> IMPORT_EXPORT_BUS =
+            part("ME Import Export Bus", "import_export_bus_part", ImportExportBusPart.class, ImportExportBusPart::new);
+    public static final LibItemDefinition<PartItem<AdvancedIOBusPart>> ADVANCED_IO_BUS =
+            part("ME Advanced IO Bus", "advanced_io_bus_part", AdvancedIOBusPart.class, AdvancedIOBusPart::new);
+    public static final LibItemDefinition<PartItem<ThroughputMonitorPart>> THROUGHPUT_MONITOR = part(
+            "ME Throughput Monitor", "throughput_monitor", ThroughputMonitorPart.class, ThroughputMonitorPart::new);
+    public static final LibItemDefinition<PartItem<QuantumCrafterTerminalPart>> QUANTUM_CRAFTER_TERMINAL = part(
+            "Quantum Crafter Terminal",
+            "quantum_crafter_terminal",
+            QuantumCrafterTerminalPart.class,
+            QuantumCrafterTerminalPart::new);
+    public static final LibItemDefinition<WirelessTerminalItem> QUANTUM_CRAFTER_WIRELESS_TERMINAL = conditionalItem(
+            Addons.AE2WTLIB,
+            "Wireless Quantum Crafter Terminal",
+            "wireless_quantum_crafter_terminal",
+            "net.pedroksl.advanced_ae.common.items.QuantumCrafterWirelessTerminalItem");
+
+    public static final LibItemDefinition<AdvProcessingPatternItem> ADV_PROCESSING_PATTERN =
+            item("Advanced Processing Pattern", "adv_processing_pattern", AdvProcessingPatternItem::new);
+
+    public static final LibItemDefinition<Item> ADV_PATTERN_PROVIDER_UPGRADE = item(
+            "Advanced Pattern Provider Upgrade", "adv_pattern_provider_upgrade", AdvPatternProviderUpgradeItem::new);
+    public static final LibItemDefinition<Item> ADV_PATTERN_PROVIDER_CAPACITY_UPGRADE = item(
+            "Advanced Pattern Provider Capacity Upgrade",
+            "adv_pattern_provider_capacity_upgrade",
+            AdvPatternProviderCapacityUpgradeItem::new);
+    public static final LibItemDefinition<MaterialItem> QUANTUM_INFUSED_DUST =
+            item("Quantum Infused Dust", "quantum_infused_dust", MaterialItem::new);
+    public static final LibItemDefinition<MaterialItem> QUANTUM_ALLOY =
+            item("Quantum Alloy", "quantum_alloy", MaterialItem::new);
+    public static final LibItemDefinition<MaterialItem> QUANTUM_ALLOY_PLATE =
+            item("Quantum Alloy Plate", "quantum_alloy_plate", p -> new MaterialItem(p.rarity(Rarity.EPIC)));
+    public static final LibItemDefinition<MaterialItem> SHATTERED_SINGULARITY =
+            item("Shattered Singularity", "shattered_singularity", MaterialItem::new);
+    public static final LibItemDefinition<MaterialItem> QUANTUM_PROCESSOR_PRESS =
+            item("Inscriber Quantum Press", "quantum_processor_press", MaterialItem::new);
+    public static final LibItemDefinition<MaterialItem> QUANTUM_PROCESSOR_PRINT =
+            item("Printed Quantum Circuit", "printed_quantum_processor", MaterialItem::new);
+    public static final LibItemDefinition<MaterialItem> QUANTUM_PROCESSOR =
+            item("Quantum Processor", "quantum_processor", MaterialItem::new);
+    public static final LibItemDefinition<MaterialItem> QUANTUM_STORAGE_COMPONENT =
+            item("Quantum Storage Component", "quantum_storage_component", MaterialItem::new);
+
+    public static final LibItemDefinition<AdvPatternEncoderItem> ADV_PATTERN_ENCODER =
+            item("Advanced Pattern Encoder", "adv_pattern_encoder", AdvPatternEncoderItem::new);
+
+    public static final LibItemDefinition<Item> MONITOR_CONFIGURATOR =
+            item("Throughput Monitor Configurator", "throughput_monitor_configurator", Item::new);
+
+    public static final LibItemDefinition<QuantumHelmet> QUANTUM_HELMET =
+            item("Quantum Helmet", "quantum_helmet", QuantumHelmet::new);
+    public static final LibItemDefinition<QuantumChestplate> QUANTUM_CHESTPLATE =
+            item("Quantum Chestplate", "quantum_chestplate", QuantumChestplate::new);
+    public static final LibItemDefinition<QuantumLeggings> QUANTUM_LEGGINGS =
+            item("Quantum Leggings", "quantum_leggings", QuantumLeggings::new);
+    public static final LibItemDefinition<QuantumBoots> QUANTUM_BOOTS =
+            item("Quantum Boots", "quantum_boots", QuantumBoots::new);
+
+    public static final LibItemDefinition<QuantumUpgradeBaseItem> QUANTUM_UPGRADE_BASE =
+            item("Quantum Upgrade Base Card", "quantum_upgrade_base", QuantumUpgradeBaseItem::new);
+    public static final LibItemDefinition<QuantumUpgradeBaseItem> WALK_SPEED_CARD =
+            item("Walk Speed Card", "walk_speed_card", p -> new QuantumUpgradeBaseItem(UpgradeType.WALK_SPEED, p));
+    public static final LibItemDefinition<QuantumUpgradeBaseItem> SPRINT_SPEED_CARD = item(
+            "Sprint Speed Card", "sprint_speed_card", p -> new QuantumUpgradeBaseItem(UpgradeType.SPRINT_SPEED, p));
+    public static final LibItemDefinition<QuantumUpgradeBaseItem> STEP_ASSIST_CARD =
+            item("Step Assist Card", "step_assist_card", p -> new QuantumUpgradeBaseItem(UpgradeType.STEP_ASSIST, p));
+    public static final LibItemDefinition<QuantumUpgradeBaseItem> JUMP_HEIGHT_CARD =
+            item("Jump Height Card", "jump_height_card", p -> new QuantumUpgradeBaseItem(UpgradeType.JUMP_HEIGHT, p));
+    public static final LibItemDefinition<QuantumUpgradeBaseItem> LAVA_IMMUNITY_CARD = item(
+            "Lava Immunity Card", "lava_immunity_card", p -> new QuantumUpgradeBaseItem(UpgradeType.LAVA_IMMUNITY, p));
+    public static final LibItemDefinition<QuantumUpgradeBaseItem> FLIGHT_CARD =
+            item("Flight Card", "flight_card", p -> new QuantumUpgradeBaseItem(UpgradeType.FLIGHT, p));
+    public static final LibItemDefinition<QuantumUpgradeBaseItem> WATER_BREATHING_CARD = item(
+            "Water Breathing Card",
+            "water_breathing_card",
+            p -> new QuantumUpgradeBaseItem(UpgradeType.WATER_BREATHING, p));
+    public static final LibItemDefinition<QuantumUpgradeBaseItem> AUTO_FEED_CARD =
+            item("Auto Feeding Card", "auto_feeding_card", p -> new QuantumUpgradeBaseItem(UpgradeType.AUTO_FEED, p));
+    public static final LibItemDefinition<QuantumUpgradeBaseItem> AUTO_STOCK_CARD =
+            item("Auto Stock Card", "auto_stock_card", p -> new QuantumUpgradeBaseItem(UpgradeType.AUTO_STOCK, p));
+    public static final LibItemDefinition<QuantumUpgradeBaseItem> MAGNET_CARD =
+            item("Magnet Card", "magnet_card", p -> new QuantumUpgradeBaseItem(UpgradeType.MAGNET, p));
+    public static final LibItemDefinition<QuantumUpgradeBaseItem> HP_BUFFER_CARD =
+            item("HP Buffer Card", "hp_buffer_card", p -> new QuantumUpgradeBaseItem(UpgradeType.HP_BUFFER, p));
+    public static final LibItemDefinition<QuantumUpgradeBaseItem> EVASION_CARD =
+            item("Evasion Card", "evasion_card", p -> new QuantumUpgradeBaseItem(UpgradeType.EVASION, p));
+    public static final LibItemDefinition<QuantumUpgradeBaseItem> REGENERATION_CARD = item(
+            "Regeneration Card", "regeneration_card", p -> new QuantumUpgradeBaseItem(UpgradeType.REGENERATION, p));
+    public static final LibItemDefinition<QuantumUpgradeBaseItem> STRENGTH_CARD =
+            item("Strength Card", "strength_card", p -> new QuantumUpgradeBaseItem(UpgradeType.STRENGTH, p));
+    public static final LibItemDefinition<QuantumUpgradeBaseItem> ATTACK_SPEED_CARD = item(
+            "Attack Speed Card", "attack_speed_card", p -> new QuantumUpgradeBaseItem(UpgradeType.ATTACK_SPEED, p));
+    public static final LibItemDefinition<QuantumUpgradeBaseItem> LUCK_CARD =
+            item("Luck Card", "luck_card", p -> new QuantumUpgradeBaseItem(UpgradeType.LUCK, p));
+    public static final LibItemDefinition<QuantumUpgradeBaseItem> REACH_CARD =
+            item("Reach Card", "reach_card", p -> new QuantumUpgradeBaseItem(UpgradeType.REACH, p));
+    public static final LibItemDefinition<QuantumUpgradeBaseItem> SWIM_SPEED_CARD =
+            item("Swim Speed Card", "swim_speed_card", p -> new QuantumUpgradeBaseItem(UpgradeType.SWIM_SPEED, p));
+    public static final LibItemDefinition<QuantumUpgradeBaseItem> NIGHT_VISION_CARD = item(
+            "Night Vision Card", "night_vision_card", p -> new QuantumUpgradeBaseItem(UpgradeType.NIGHT_VISION, p));
+    public static final LibItemDefinition<QuantumUpgradeBaseItem> FLIGHT_DRIFT_CARD = item(
+            "Flight Drift Card", "flight_drift_card", p -> new QuantumUpgradeBaseItem(UpgradeType.FLIGHT_DRIFT, p));
+    public static final LibItemDefinition<QuantumUpgradeBaseItem> RECHARGING_CARD =
+            item("ME Recharging Card", "recharging_card", p -> new QuantumUpgradeBaseItem(UpgradeType.CHARGING, p));
+    public static final LibItemDefinition<QuantumUpgradeBaseItem> WORKBENCH_CARD = item(
+            "Portable Workbench Card",
+            "portable_workbench_card",
+            p -> new QuantumUpgradeBaseItem(UpgradeType.WORKBENCH, p));
+    public static final LibItemDefinition<QuantumUpgradeBaseItem> PICK_CRAFT_CARD =
+            item("Pick Craft Card", "pick_craft_card", p -> new QuantumUpgradeBaseItem(UpgradeType.PICK_CRAFT, p));
+    //    public static final ItemDefinition<QuantumUpgradeBaseItem> HUD_CARD =
+    //            item("HUD Card", "hud_card", p -> new QuantumUpgradeBaseItem(UpgradeType.HUD, p));
+
+    @SuppressWarnings("unchecked")
+    private static <T extends Item> LibItemDefinition<T> conditionalItem(
+            AddonEnum addon, String englishName, String id, String itemClass) {
+        if (addon.isLoaded()) {
+            try {
+                var instance =
+                        (T) Class.forName(itemClass).getDeclaredConstructor().newInstance();
+                return item(AdvancedAE.MOD_ID, englishName, id, p -> instance);
+            } catch (Exception ignored) {
+            }
+        }
+        return null;
+    }
+
+    protected static <T extends Item> LibItemDefinition<T> item(
+            String englishName, String id, Function<Item.Properties, T> factory) {
+        return item(AdvancedAE.MOD_ID, englishName, id, factory);
+    }
+
+    protected static <T extends IPart> LibItemDefinition<PartItem<T>> part(
+            String englishName, String id, Class<T> partClass, Function<IPartItem<T>, T> factory) {
+        return part(AdvancedAE.MOD_ID, englishName, id, partClass, factory);
+    }
+}
